@@ -1,0 +1,20 @@
+# Create a program to find out if a number plate is valid or not.The most common format for private vehicles in India is "XX NN YY NNNN", where: "XX" represents two uppercase letters indicating the code of the state or union territory where the vehicle is registered. "NN" represents two digits indicating the RTO (Regional Transport Office) code within the state. "YY" represents two uppercase letters indicating a series. "NNNN" represents a four-digit number. For example, a private vehicle registered in Maharashtra might have a number plate like "MH 12 AB 1234".
+import re
+
+def is_valid_number_plate(number_plate):     #Function to check if the given number plate follows the Indian private vehicle format "XX NN YY NNNN".
+    pattern = r'^[A-Z]{2}\s\d{2}\s[A-Z]{2}\s\d{4}$'     # Define the pattern for the format "XX NN YY NNNN"
+
+    # check if the number plate matches the pattern
+    if re.match(pattern, number_plate):
+        return True
+    else:
+        return False
+
+# Test the function with samp
+test_number_plates = ["MH 12 AB 1234", "DL 10 XY 9878", "KA 23 LF 4567", "UP 55 CD 7890", "XYZ 123 4567"]
+
+for plate in test_number_plates:
+    if is_valid_number_plate(plate):
+        print(f"{plate} is a valid number plate.")
+    else:
+        print(f"{plate} is NOT a valid number plate.")
