@@ -1,0 +1,60 @@
+""" 
+Create a python code to demonstrate the working of decision tree, for the input use knowledge base:
+K_Base = {
+ 
+  "Is the computer powering on?": {
+        "Yes": {
+ 
+ "Is there a beeping sound?": {
+                "Yes": "Check the RAM and CPU",
+ 
+    "No": {
+  "Is the display showing any output?": {
+ 
+ "Yes": "Check the display connections and settings",
+                      "No": "Check the power supply and motherboard"
+                    }
+   }
+  }
+ },
+        "No": "Check the power supply and cables"
+    }
+}
+"""
+K_Base = {
+    "Is the computer powering on?": {
+        "Yes": {
+            "Is there a beeping sound?": {
+                "Yes": "Check the RAM and CPU",
+                "No": {
+                    "Is the display showing any output?": {
+                        "Yes": "Check the display connections and settings",
+                        "No": "Check the power supply and motherboard"
+                    }
+                }
+            }
+        },
+        "No": "Check the power supply and cables"
+    }
+}
+
+def ask_question(question):
+    response = input(f"{question} (Yes/No): ").strip().capitalize()
+    return response     #Function to ask a question and return the user's response
+
+def decision_tree(tree):
+    #Recursive function to navigate the decision tree
+    if isinstance(tree, dict):  
+        question = list(tree.keys())[0]  # Get the first question
+        print(f"Question: {question}")  # Debugging statement to see which question is asked
+        answer = ask_question(question)  # Ask the user the question
+        if answer in tree[question]:  # Check if the answer is valid (Yes/No)
+            return decision_tree(tree[question][answer])  # Recurse into the next part of the tree
+        else:
+            print("Invalid answer. Please respond with Yes or No.")
+            return decision_tree(tree)  # Ask again if invalid answer
+    else:
+        return tree  
+
+result = decision_tree(K_Base)
+print(f"Result: {result}")
